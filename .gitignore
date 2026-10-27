@@ -1,0 +1,26 @@
+# Videos and audio stay off GitHub (too big, and private). Share footage via Google Drive links.
+*.mp4
+*.mov
+*.m4a
+*.mkv
+*.webm
+*.wav
+!reel-*/assets/pop.wav
+!reel-*/assets/thud.wav
+!reel-*/assets/whoosh.wav
+!reel-*/assets/ding.wav
+
+# Tools are installed per machine (Windows: downloaded .exe files; cloud: setup-cloud.sh)
+tools/*
+!tools/README.md
+
+# Reference reels are re-downloaded from their links (see References/README.md)
+References/*
+!References/README.md
+
+# Build output and caches
+node_modules/
+renders/
+.hyperframes/
+__pycache__/
+*.crdownload

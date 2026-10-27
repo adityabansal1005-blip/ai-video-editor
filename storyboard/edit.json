@@ -1,0 +1,358 @@
+{
+  "source": "..\\Raw footage\\WhatsApp Video 2026-10-27 at 3.40.34 PM.mp4",
+  "source_duration": 69.51,
+  "output_duration": 61.28,
+  "keep_segments": [
+    [
+      3.48,
+      4.666
+    ],
+    [
+      4.729,
+      6.704
+    ],
+    [
+      6.771,
+      6.971
+    ],
+    [
+      7.038,
+      9.08
+    ],
+    [
+      9.853,
+      11.038
+    ],
+    [
+      12.142,
+      16.247
+    ],
+    [
+      16.488,
+      17.957
+    ],
+    [
+      18.123,
+      19.094
+    ],
+    [
+      19.201,
+      19.889
+    ],
+    [
+      20.042,
+      21.802
+    ],
+    [
+      22.0,
+      28.066
+    ],
+    [
+      28.141,
+      32.881
+    ],
+    [
+      32.982,
+      44.066
+    ],
+    [
+      44.149,
+      47.415
+    ],
+    [
+      47.487,
+      53.225
+    ],
+    [
+      53.323,
+      54.515
+    ],
+    [
+      54.713,
+      58.802
+    ],
+    [
+      58.894,
+      59.788
+    ],
+    [
+      59.893,
+      62.668
+    ],
+    [
+      62.938,
+      67.283
+    ],
+    [
+      67.344,
+      68.85
+    ]
+  ],
+  "scenes": [
+    {
+      "id": 1,
+      "name": "Hook",
+      "src": [
+        3.48,
+        6.62
+      ],
+      "line": "Kya diabetes mein hum kela aur aam kha sakte hain?",
+      "hero": [
+        "DIABETES",
+        "KELA",
+        "AAM"
+      ],
+      "visual": "Punch-in 115%. Banana + mango icons pop in beside the question.",
+      "graphic": "Captions from frame 1. Question mark pulses once.",
+      "sfx": "Soft pop on each fruit icon",
+      "out": [
+        0.0,
+        3.08
+      ],
+      "dur": 3.08,
+      "thumb": "thumbs/scene01.jpg"
+    },
+    {
+      "id": 2,
+      "name": "Tease",
+      "src": [
+        6.62,
+        9.05
+      ],
+      "line": "Iska answer aapko surprise kar dega.",
+      "hero": [
+        "SURPRISE"
+      ],
+      "visual": "Back to 100%. Lower third slides up.",
+      "graphic": "Name card: Dr. Sachi Tandon / Diabetologist · MD Naturopathy · Nutrition Expert",
+      "sfx": "Music bed starts",
+      "out": [
+        3.08,
+        5.4
+      ],
+      "dur": 2.32,
+      "thumb": "thumbs/scene02.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Why fruits",
+      "src": [
+        9.85,
+        16.2
+      ],
+      "line": "Humare shareer ko kuch aise tatvon ki bahut zyada zaroorat hoti hai, jo humein instant energy dete hain.",
+      "hero": [
+        "ZAROORAT",
+        "INSTANT ENERGY"
+      ],
+      "visual": "Jump cut at the mid-sentence pause, 100% → 115%.",
+      "graphic": "Energy icon card (lightning) pops in on 'instant energy'.",
+      "sfx": "Pop",
+      "out": [
+        5.4,
+        11.11
+      ],
+      "dur": 5.71,
+      "thumb": "thumbs/scene03.jpg"
+    },
+    {
+      "id": 4,
+      "name": "Fructose",
+      "src": [
+        16.9,
+        21.8
+      ],
+      "line": "Jaise ki fructose, jo humare banana ya phir aur fruits mein hota hai.",
+      "hero": [
+        "FRUCTOSE",
+        "FRUITS"
+      ],
+      "visual": "Rounded card in lower half, speaker stays visible.",
+      "graphic": "Cream card: 'FRUCTOSE = fruit ki natural sugar' with banana illustration.",
+      "sfx": "Pop",
+      "out": [
+        11.11,
+        15.58
+      ],
+      "dur": 4.47,
+      "thumb": "thumbs/scene04.jpg"
+    },
+    {
+      "id": 5,
+      "name": "Micronutrients",
+      "src": [
+        22.0,
+        28.15
+      ],
+      "line": "Aur usme kuch aise poshak tatva, yaani nutrition hota hai, jinko hum micronutrients kehte hain.",
+      "hero": [
+        "NUTRITION",
+        "MICRONUTRIENTS"
+      ],
+      "visual": "Slow push 100→105%.",
+      "graphic": "Three chips pop in one by one: VITAMINS · MINERALS · FIBRE",
+      "sfx": "Pop ×3",
+      "out": [
+        15.58,
+        21.91
+      ],
+      "dur": 6.33,
+      "thumb": "thumbs/scene05.jpg"
+    },
+    {
+      "id": 6,
+      "name": "Absorption",
+      "src": [
+        28.4,
+        35.6
+      ],
+      "line": "Agar woh humari body mein prachur matra mein nahi hain, to hum jo bhi intake karte hain, uska absorption proper nahi hota.",
+      "hero": [
+        "BODY",
+        "ABSORPTION"
+      ],
+      "visual": "Jump cut 115% → 100% at 'to hum jo bhi'.",
+      "graphic": "Simple card: 'Kam micronutrients → absorption kam'",
+      "sfx": "None",
+      "out": [
+        21.91,
+        29.3
+      ],
+      "dur": 7.39,
+      "thumb": "thumbs/scene06.jpg"
+    },
+    {
+      "id": 7,
+      "name": "Key factor",
+      "src": [
+        35.9,
+        38.3
+      ],
+      "line": "To yahan par key factor hai: portion control.",
+      "hero": [
+        "PORTION CONTROL"
+      ],
+      "visual": "FULL-SCREEN title on deep forest for ~1.2 s, then back to speaker.",
+      "graphic": "'KEY FACTOR' in serif italic, 'PORTION CONTROL' huge in turmeric.",
+      "sfx": "Whoosh in",
+      "out": [
+        29.3,
+        32.3
+      ],
+      "dur": 3.0,
+      "thumb": "thumbs/scene07.jpg"
+    },
+    {
+      "id": 8,
+      "name": "Don't",
+      "src": [
+        38.9,
+        44.6
+      ],
+      "line": "Agar aap chaar banana ek saath kha lete hain, ya bada mango ek saath kha lete hain, to woh aapko nuksaan kar sakte hain.",
+      "hero": [
+        "CHAAR BANANA",
+        "BADA MANGO",
+        "NUKSAAN"
+      ],
+      "visual": "Punch-in 115% on 'nuksaan'.",
+      "graphic": "❌ cards in coral: '4 kele ek saath' and '1 bada aam ek saath'",
+      "sfx": "Soft 'wrong' thud on each ❌",
+      "out": [
+        32.3,
+        38.22
+      ],
+      "dur": 5.92,
+      "thumb": "thumbs/scene08.jpg"
+    },
+    {
+      "id": 9,
+      "name": "Do",
+      "src": [
+        44.9,
+        50.6
+      ],
+      "line": "Lekin agar aap usko short portion mein khate hain, juice nahi banate, aur fibre ke saath khate hain…",
+      "hero": [
+        "SHORT PORTION",
+        "JUICE NAHI",
+        "FIBRE"
+      ],
+      "visual": "Back to 100%.",
+      "graphic": "✅ icon list pops in one by one: CHHOTA PORTION · JUICE NAHI · FIBRE KE SAATH",
+      "sfx": "Pop ×3",
+      "out": [
+        38.22,
+        44.15
+      ],
+      "dur": 5.93,
+      "thumb": "thumbs/scene09.jpg"
+    },
+    {
+      "id": 10,
+      "name": "Verdict",
+      "src": [
+        50.9,
+        56.85
+      ],
+      "line": "…to fruits bure nahi hain, fruits achhe hain. Unko zaroor include kariye.",
+      "hero": [
+        "BURE NAHI",
+        "ACHHE",
+        "ZAROOR"
+      ],
+      "visual": "Slow push 100→108% for emphasis.",
+      "graphic": "'Fruits bure nahi, ACHHE hain' ✅ stamp on 'achhe'.",
+      "sfx": "Ding on 'achhe'",
+      "out": [
+        44.15,
+        49.85
+      ],
+      "dur": 5.7,
+      "thumb": "thumbs/scene10.jpg"
+    },
+    {
+      "id": 11,
+      "name": "Intro",
+      "src": [
+        56.9,
+        62.05
+      ],
+      "line": "Main hoon Dr. Sachi Tandon, diabetologist, MD Naturopathy and nutritional expert.",
+      "hero": [
+        "DR. SACHI TANDON"
+      ],
+      "visual": "Punch-in 110%.",
+      "graphic": "Name card again, larger, with credentials listed.",
+      "sfx": "None",
+      "out": [
+        49.85,
+        54.81
+      ],
+      "dur": 4.96,
+      "thumb": "thumbs/scene11.jpg"
+    },
+    {
+      "id": 12,
+      "name": "CTA + end card",
+      "src": [
+        62.05,
+        68.85
+      ],
+      "line": "Agar aap diabetes ke liye customised meal plan chahte hain, to Sachi Naturopathy se sampark kariye, immediately.",
+      "hero": [
+        "MEAL PLAN",
+        "SACHI NATUROPATHY"
+      ],
+      "visual": "100%, then 1.5 s end card.",
+      "graphic": "End card on deep forest: 'SACHI NATUROPATHY' in turmeric + 'Customised diabetes meal plans'.",
+      "sfx": "Music swells and fades out",
+      "out": [
+        54.81,
+        61.28
+      ],
+      "dur": 6.47,
+      "thumb": "thumbs/scene12.jpg"
+    }
+  ]
+}

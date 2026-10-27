@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080, height=1920">
+<title>Diabetes Fruits Reel</title>
+<script src="assets/gsap.min.js"></script>
+<style>
+/* Brand: see ../brand-sheet.md */
+@font-face { font-family: "Archivo Black"; src: url("assets/fonts/archivo-black-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Instrument Serif"; font-style: italic; src: url("assets/fonts/instrument-serif-latin-400-italic.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 400; src: url("assets/fonts/inter-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 600; src: url("assets/fonts/inter-latin-600-normal.woff2") format("woff2"); }
+
+:root { --gold: #F2B33D; --forest: #173A2E; --cream: #F7F0E1; --coral: #E8604C; --ink: #1d1d1b; }
+body { margin: 0; background: #000; }
+#root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #000; font-family: "Inter", sans-serif; }
+#cam { position: absolute; inset: 0; transform-origin: 50% 40%; }
+#a-roll { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.clip { position: absolute; inset: 0; pointer-events: none; }
+
+/* captions: top third, clear of the face */
+.cap { z-index: 20; }
+.capbox { position: absolute; left: 60px; right: 60px; top: 250px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.lead { font-family: "Instrument Serif", serif; font-style: italic; color: #fff; font-size: 66px; line-height: 1.05;
+  text-shadow: 0 3px 14px rgba(0,0,0,.6), 0 1px 3px rgba(0,0,0,.5); }
+.lead.body { font-family: "Inter", sans-serif; font-style: normal; font-weight: 600; font-size: 64px; }
+.hero { display: block; font-family: "Archivo Black", sans-serif; color: var(--gold); text-transform: uppercase; line-height: 1.0;
+  margin-top: 6px; text-shadow: 0 4px 18px rgba(0,0,0,.55), 0 2px 4px rgba(0,0,0,.5); }
+
+/* hook fruits */
+.fruit { position: absolute; top: 1080px; width: 230px; height: 230px; border-radius: 50%; background: var(--cream);
+  display: flex; align-items: center; justify-content: center; font-size: 130px; box-shadow: 0 12px 34px rgba(0,0,0,.35); }
+.fruit.left { left: 70px; }
+.fruit.right { right: 70px; }
+
+/* cards */
+.card { position: absolute; left: 90px; right: 90px; top: 1180px; border-radius: 28px; padding: 34px 40px;
+  display: flex; align-items: center; justify-content: center; gap: 28px; font-weight: 600; font-size: 56px;
+  box-shadow: 0 14px 40px rgba(0,0,0,.35); }
+.card.dark { background: var(--forest); color: #fff; }
+.card.cream { background: var(--cream); color: var(--ink); }
+.card.small { font-size: 48px; gap: 20px; flex-wrap: wrap; }
+.card .ico { font-size: 96px; line-height: 1; }
+.card .arrow { color: var(--coral); font-size: 64px; }
+.card b { font-family: "Archivo Black", sans-serif; font-weight: 400; color: var(--forest); }
+.stack { display: flex; flex-direction: column; text-align: left; }
+.stack b { font-size: 72px; }
+.card.no { background: #fff; color: var(--ink); justify-content: flex-start; border-left: 18px solid var(--coral); }
+.card.no.n0 { top: 1080px; }
+.card.no.n1 { top: 1290px; }
+.card.no .x { color: var(--coral); font-family: "Archivo Black", sans-serif; font-size: 70px; }
+
+.chips { position: absolute; left: 60px; right: 60px; top: 1220px; display: flex; justify-content: center; gap: 22px; flex-wrap: wrap; }
+.chip { display: block; background: var(--gold); color: var(--forest); font-family: "Archivo Black", sans-serif; font-size: 46px;
+  padding: 18px 30px; border-radius: 999px; box-shadow: 0 10px 28px rgba(0,0,0,.3); }
+
+.list { position: absolute; left: 110px; right: 110px; top: 1070px; display: flex; flex-direction: column; gap: 22px; }
+.row { display: flex; align-items: center; gap: 26px; background: var(--cream); color: var(--forest); border-radius: 24px;
+  padding: 26px 34px; font-family: "Archivo Black", sans-serif; font-size: 54px; text-transform: uppercase; box-shadow: 0 10px 30px rgba(0,0,0,.3); }
+.tick { display: flex; align-items: center; justify-content: center; width: 72px; height: 72px; border-radius: 50%;
+  background: var(--forest); color: var(--gold); font-size: 46px; flex: none; }
+
+.stamp { position: absolute; left: 120px; right: 120px; top: 1170px; padding: 36px 30px; border: 10px solid var(--gold);
+  border-radius: 30px; background: rgba(23,58,46,.92); color: #fff; text-align: center; font-weight: 600; font-size: 60px;
+  display: flex; flex-direction: column; align-items: center; }
+.stamp b { font-family: "Archivo Black", sans-serif; font-weight: 400; color: var(--gold); font-size: 104px; }
+.ln { display: block; }
+
+/* name cards */
+.namecard { position: absolute; left: 0; right: 0; top: 1330px; padding: 70px 70px 90px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,.72) 35%); }
+.namecard .nm { font-family: "Archivo Black", sans-serif; color: #fff; font-size: 74px; }
+.namecard .cr { color: rgba(255,255,255,.82); font-size: 38px; margin-top: 8px; }
+.namecard.big { top: 1150px; }
+.namecard.big .nm { color: var(--gold); font-size: 92px; }
+.namecard.big .cr { font-size: 46px; line-height: 1.3; }
+
+/* full-screen cards */
+.full { z-index: 40; }
+.title, .end { position: absolute; inset: 0; background: var(--forest); display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center; }
+.title { opacity: 0; }
+.title .k, .end .k { font-family: "Instrument Serif", serif; font-style: italic; color: #fff; font-size: 84px; }
+.title .pc { font-family: "Archivo Black", sans-serif; color: var(--gold); font-size: 150px; line-height: 1.0; margin-top: 18px; }
+.end .k { font-size: 60px; max-width: 860px; }
+.end .brand { font-family: "Archivo Black", sans-serif; color: var(--gold); font-size: 108px; line-height: 1.0; margin: 30px 0; }
+.end .who { color: var(--cream); font-weight: 600; font-size: 50px; }
+
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="main" data-start="0" data-width="1080" data-height="1920" data-duration="63.2">
+  <div id="cam">
+    <video id="a-roll" src="assets/base.mp4" data-start="0" data-duration="61.6" data-track-index="0" muted playsinline></video>
+  </div>
+  <audio id="voice" src="assets/base.mp4" data-start="0" data-duration="61.6" data-track-index="10" data-volume="1"></audio>
+  <audio id="music" src="assets/music.wav" data-start="0" data-duration="63.2" data-track-index="11" data-volume="1"></audio>
+<audio id="sfx0" src="assets/pop.wav" data-start="1.350" data-duration="0.18" data-track-index="12" data-volume="0.5"></audio>
+<audio id="sfx1" src="assets/pop.wav" data-start="1.710" data-duration="0.18" data-track-index="13" data-volume="0.5"></audio>
+<audio id="sfx2" src="assets/pop.wav" data-start="10.130" data-duration="0.18" data-track-index="14" data-volume="0.5"></audio>
+<audio id="sfx3" src="assets/pop.wav" data-start="12.290" data-duration="0.18" data-track-index="12" data-volume="0.5"></audio>
+<audio id="sfx4" src="assets/pop.wav" data-start="18.560" data-duration="0.18" data-track-index="13" data-volume="0.45"></audio>
+<audio id="sfx5" src="assets/pop.wav" data-start="19.010" data-duration="0.18" data-track-index="14" data-volume="0.45"></audio>
+<audio id="sfx6" src="assets/pop.wav" data-start="19.460" data-duration="0.18" data-track-index="12" data-volume="0.45"></audio>
+<audio id="sfx7" src="assets/whoosh.wav" data-start="30.690" data-duration="0.6" data-track-index="13" data-volume="0.6"></audio>
+<audio id="sfx8" src="assets/thud.wav" data-start="33.080" data-duration="0.35" data-track-index="14" data-volume="0.7"></audio>
+<audio id="sfx9" src="assets/thud.wav" data-start="34.630" data-duration="0.35" data-track-index="12" data-volume="0.7"></audio>
+<audio id="sfx10" src="assets/pop.wav" data-start="39.690" data-duration="0.18" data-track-index="13" data-volume="0.5"></audio>
+<audio id="sfx11" src="assets/pop.wav" data-start="41.280" data-duration="0.18" data-track-index="14" data-volume="0.5"></audio>
+<audio id="sfx12" src="assets/pop.wav" data-start="42.850" data-duration="0.18" data-track-index="12" data-volume="0.5"></audio>
+<audio id="sfx13" src="assets/ding.wav" data-start="46.680" data-duration="0.9" data-track-index="13" data-volume="0.45"></audio>
+
+<div id="g1" class="clip cap" data-start="0.040" data-duration="0.690" data-track-index="2"><div class="capbox"><div class="lead">Kya</div><div class="hero" style="font-size:132px">diabetes</div></div></div>
+<div id="g2" class="clip cap" data-start="0.730" data-duration="0.800" data-track-index="2"><div class="capbox"><div class="lead">mein hum</div><div class="hero" style="font-size:132px">kela</div></div></div>
+<div id="g3" class="clip cap" data-start="1.530" data-duration="0.430" data-track-index="2"><div class="capbox"><div class="lead">aur</div><div class="hero" style="font-size:132px">aam</div></div></div>
+<div id="g4" class="clip cap" data-start="1.960" data-duration="1.260" data-track-index="2"><div class="capbox"><div class="lead body">kha sakte hain?</div></div></div>
+<div id="g5" class="clip cap" data-start="3.220" data-duration="1.300" data-track-index="2"><div class="capbox"><div class="lead">Iska answer aapko</div><div class="hero" style="font-size:132px">surprise</div></div></div>
+<div id="g6" class="clip cap" data-start="4.520" data-duration="1.330" data-track-index="2"><div class="capbox"><div class="lead body">kar dega.</div></div></div>
+<div id="g7" class="clip cap" data-start="5.850" data-duration="1.110" data-track-index="2"><div class="capbox"><div class="lead body">Humare shareer ko</div></div></div>
+<div id="g8" class="clip cap" data-start="6.960" data-duration="0.640" data-track-index="2"><div class="capbox"><div class="lead body">kuch aise tatvon</div></div></div>
+<div id="g9" class="clip cap" data-start="7.600" data-duration="1.240" data-track-index="2"><div class="capbox"><div class="lead">ki bahut zyada</div><div class="hero" style="font-size:132px">zaroorat</div></div></div>
+<div id="g10" class="clip cap" data-start="8.840" data-duration="0.330" data-track-index="2"><div class="capbox"><div class="lead body">hoti hai</div></div></div>
+<div id="g11" class="clip cap" data-start="9.170" data-duration="1.570" data-track-index="2"><div class="capbox"><div class="lead">jo humein</div><div class="hero" style="font-size:92px">instant energy</div></div></div>
+<div id="g12" class="clip cap" data-start="10.740" data-duration="0.466" data-track-index="2"><div class="capbox"><div class="lead body">dete hain.</div></div></div>
+<div id="g13" class="clip cap" data-start="11.206" data-duration="1.464" data-track-index="2"><div class="capbox"><div class="lead">Jaise ki</div><div class="hero" style="font-size:132px">fructose</div></div></div>
+<div id="g14" class="clip cap" data-start="12.670" data-duration="1.310" data-track-index="2"><div class="capbox"><div class="lead body">jo humare banana</div></div></div>
+<div id="g15" class="clip cap" data-start="13.980" data-duration="1.160" data-track-index="2"><div class="capbox"><div class="lead">ya phir aur</div><div class="hero" style="font-size:132px">fruits</div></div></div>
+<div id="g16" class="clip cap" data-start="15.140" data-duration="0.810" data-track-index="2"><div class="capbox"><div class="lead body">mein hota hai.</div></div></div>
+<div id="g17" class="clip cap" data-start="15.950" data-duration="1.130" data-track-index="2"><div class="capbox"><div class="lead body">Aur usme kuch</div></div></div>
+<div id="g18" class="clip cap" data-start="17.080" data-duration="1.250" data-track-index="2"><div class="capbox"><div class="lead body">aise poshak tatva</div></div></div>
+<div id="g19" class="clip cap" data-start="18.330" data-duration="1.080" data-track-index="2"><div class="capbox"><div class="lead">yaani</div><div class="hero" style="font-size:132px">nutrition</div></div></div>
+<div id="g20" class="clip cap" data-start="19.410" data-duration="0.740" data-track-index="2"><div class="capbox"><div class="lead body">hota hai</div></div></div>
+<div id="g21" class="clip cap" data-start="20.150" data-duration="1.320" data-track-index="2"><div class="capbox"><div class="lead">jinko hum</div><div class="hero" style="font-size:86px">micronutrients</div></div></div>
+<div id="g22" class="clip cap" data-start="21.470" data-duration="0.610" data-track-index="2"><div class="capbox"><div class="lead body">kehte hain.</div></div></div>
+<div id="g23" class="clip cap" data-start="22.080" data-duration="1.270" data-track-index="2"><div class="capbox"><div class="lead">Agar woh humari</div><div class="hero" style="font-size:132px">body</div></div></div>
+<div id="g24" class="clip cap" data-start="23.350" data-duration="1.030" data-track-index="2"><div class="capbox"><div class="lead body">mein prachur matra</div></div></div>
+<div id="g25" class="clip cap" data-start="24.380" data-duration="0.700" data-track-index="2"><div class="capbox"><div class="lead body">mein nahi hain</div></div></div>
+<div id="g26" class="clip cap" data-start="25.080" data-duration="1.550" data-track-index="2"><div class="capbox"><div class="lead body">to hum jo</div></div></div>
+<div id="g27" class="clip cap" data-start="26.630" data-duration="0.470" data-track-index="2"><div class="capbox"><div class="lead body">bhi intake karte</div></div></div>
+<div id="g28" class="clip cap" data-start="27.100" data-duration="0.200" data-track-index="2"><div class="capbox"><div class="lead body">hain</div></div></div>
+<div id="g29" class="clip cap" data-start="27.300" data-duration="0.650" data-track-index="2"><div class="capbox"><div class="lead">uska</div><div class="hero" style="font-size:120px">absorption</div></div></div>
+<div id="g30" class="clip cap" data-start="27.950" data-duration="1.680" data-track-index="2"><div class="capbox"><div class="lead body">proper nahi hota.</div></div></div>
+<div id="g31" class="clip cap" data-start="29.630" data-duration="0.700" data-track-index="2"><div class="capbox"><div class="lead body">To yahan par</div></div></div>
+<div id="g32" class="clip cap" data-start="30.330" data-duration="2.210" data-track-index="2"><div class="capbox"><div class="lead">key factor hai</div><div class="hero" style="font-size:92px">portion control.</div></div></div>
+<div id="g33" class="clip cap" data-start="32.540" data-duration="0.990" data-track-index="2"><div class="capbox"><div class="lead">Agar aap</div><div class="hero" style="font-size:92px">chaar banana</div></div></div>
+<div id="g34" class="clip cap" data-start="33.530" data-duration="0.540" data-track-index="2"><div class="capbox"><div class="lead body">ek saath kha</div></div></div>
+<div id="g35" class="clip cap" data-start="34.070" data-duration="0.300" data-track-index="2"><div class="capbox"><div class="lead body">lete hain</div></div></div>
+<div id="g36" class="clip cap" data-start="34.370" data-duration="0.880" data-track-index="2"><div class="capbox"><div class="lead">ya</div><div class="hero" style="font-size:92px">bada mango</div></div></div>
+<div id="g37" class="clip cap" data-start="35.250" data-duration="0.720" data-track-index="2"><div class="capbox"><div class="lead body">ek saath kha</div></div></div>
+<div id="g38" class="clip cap" data-start="35.970" data-duration="0.400" data-track-index="2"><div class="capbox"><div class="lead body">lete hain</div></div></div>
+<div id="g39" class="clip cap" data-start="36.370" data-duration="0.770" data-track-index="2"><div class="capbox"><div class="lead">to woh aapko</div><div class="hero" style="font-size:132px">nuksaan</div></div></div>
+<div id="g40" class="clip cap" data-start="37.140" data-duration="1.580" data-track-index="2"><div class="capbox"><div class="lead body">kar sakte hain.</div></div></div>
+<div id="g41" class="clip cap" data-start="38.720" data-duration="0.680" data-track-index="2"><div class="capbox"><div class="lead body">Lekin agar aap</div></div></div>
+<div id="g42" class="clip cap" data-start="39.400" data-duration="1.290" data-track-index="2"><div class="capbox"><div class="lead">usko</div><div class="hero" style="font-size:92px">short portion</div></div></div>
+<div id="g43" class="clip cap" data-start="40.690" data-duration="1.230" data-track-index="2"><div class="capbox"><div class="lead">mein khate hain</div><div class="hero" style="font-size:92px">juice nahi</div></div></div>
+<div id="g44" class="clip cap" data-start="41.920" data-duration="0.420" data-track-index="2"><div class="capbox"><div class="lead body">banate</div></div></div>
+<div id="g45" class="clip cap" data-start="42.340" data-duration="0.800" data-track-index="2"><div class="capbox"><div class="lead">aur</div><div class="hero" style="font-size:132px">fibre</div></div></div>
+<div id="g46" class="clip cap" data-start="43.140" data-duration="0.610" data-track-index="2"><div class="capbox"><div class="lead body">ke saath khate</div></div></div>
+<div id="g47" class="clip cap" data-start="43.750" data-duration="0.760" data-track-index="2"><div class="capbox"><div class="lead body">hain</div></div></div>
+<div id="g48" class="clip cap" data-start="44.510" data-duration="1.160" data-track-index="2"><div class="capbox"><div class="lead">to fruits</div><div class="hero" style="font-size:132px">bure nahi</div></div></div>
+<div id="g49" class="clip cap" data-start="45.670" data-duration="0.740" data-track-index="2"><div class="capbox"><div class="lead body">hain</div></div></div>
+<div id="g50" class="clip cap" data-start="46.410" data-duration="0.820" data-track-index="2"><div class="capbox"><div class="lead">fruits</div><div class="hero" style="font-size:132px">achhe</div></div></div>
+<div id="g51" class="clip cap" data-start="47.230" data-duration="0.690" data-track-index="2"><div class="capbox"><div class="lead body">hain.</div></div></div>
+<div id="g52" class="clip cap" data-start="47.920" data-duration="1.344" data-track-index="2"><div class="capbox"><div class="lead">Unko</div><div class="hero" style="font-size:132px">zaroor</div></div></div>
+<div id="g53" class="clip cap" data-start="49.264" data-duration="0.929" data-track-index="2"><div class="capbox"><div class="lead body">include kariye.</div></div></div>
+<div id="g54" class="clip cap" data-start="50.193" data-duration="1.918" data-track-index="2"><div class="capbox"><div class="lead">Main hoon</div><div class="hero" style="font-size:92px">Dr. Sachi Tandon</div></div></div>
+<div id="g55" class="clip cap" data-start="52.111" data-duration="0.950" data-track-index="2"><div class="capbox"><div class="lead body">diabetologist</div></div></div>
+<div id="g56" class="clip cap" data-start="53.062" data-duration="1.159" data-track-index="2"><div class="capbox"><div class="lead body">MD Naturopathy and</div></div></div>
+<div id="g57" class="clip cap" data-start="54.221" data-duration="0.840" data-track-index="2"><div class="capbox"><div class="lead body">nutritional expert.</div></div></div>
+<div id="g58" class="clip cap" data-start="55.061" data-duration="0.643" data-track-index="2"><div class="capbox"><div class="lead body">Agar aap diabetes</div></div></div>
+<div id="g59" class="clip cap" data-start="55.703" data-duration="1.391" data-track-index="2"><div class="capbox"><div class="lead">ke liye customised</div><div class="hero" style="font-size:132px">meal plan</div></div></div>
+<div id="g60" class="clip cap" data-start="57.094" data-duration="0.670" data-track-index="2"><div class="capbox"><div class="lead body">chahte hain</div></div></div>
+<div id="g61" class="clip cap" data-start="57.764" data-duration="1.459" data-track-index="2"><div class="capbox"><div class="lead">to</div><div class="hero" style="font-size:92px">Sachi Naturopathy</div></div></div>
+<div id="g62" class="clip cap" data-start="59.223" data-duration="1.150" data-track-index="2"><div class="capbox"><div class="lead body">se sampark kariye</div></div></div>
+<div id="g63" class="clip cap" data-start="60.373" data-duration="1.227" data-track-index="2"><div class="capbox"><div class="lead body">immediately.</div></div></div>
+<div id="g64" class="clip " data-start="1.350" data-duration="1.739" data-track-index="3"><div class="fruit left">🍌</div></div>
+<div id="g65" class="clip " data-start="1.710" data-duration="1.379" data-track-index="3"><div class="fruit right">🥭</div></div>
+<div id="g66" class="clip " data-start="3.289" data-duration="3.800" data-track-index="3"><div class="namecard"><div class="nm">Dr. Sachi Tandon</div><div class="cr"><span class="ln">Diabetologist · MD Naturopathy · Nutrition Expert</span></div></div></div>
+<div id="g67" class="clip " data-start="10.130" data-duration="1.076" data-track-index="3"><div class="card dark"><span class="ico">⚡</span><span>Instant energy</span></div></div>
+<div id="g68" class="clip " data-start="12.290" data-duration="3.468" data-track-index="3"><div class="card cream"><span class="ico">🍌</span><span class="stack"><b>FRUCTOSE</b><span>= fruit ki natural sugar</span></span></div></div>
+<div id="g69" class="clip " data-start="18.560" data-duration="3.520" data-track-index="3"><div class="chips"><span class="chip c0">VITAMINS</span><span class="chip c1">MINERALS</span><span class="chip c2">FIBRE</span></div></div>
+<div id="g70" class="clip " data-start="27.740" data-duration="1.762" data-track-index="3"><div class="card cream small"><span>Kam micronutrients</span><span class="arrow">→</span><span><b>Absorption kam</b></span></div></div>
+<div id="g71" class="clip full" data-start="30.890" data-duration="1.500" data-track-index="5"><div class="title"><div class="k">key factor</div><div class="pc"><span class="ln">PORTION</span><span class="ln">CONTROL</span></div></div></div>
+<div id="g72" class="clip " data-start="33.080" data-duration="5.350" data-track-index="3"><div class="card no n0"><span class="x">✕</span><span>4 kele ek saath</span></div></div>
+<div id="g73" class="clip " data-start="34.630" data-duration="3.800" data-track-index="3"><div class="card no n1"><span class="x">✕</span><span>1 bada aam ek saath</span></div></div>
+<div id="g74" class="clip " data-start="39.690" data-duration="4.666" data-track-index="3"><div class="list"><div class="row r0"><span class="tick">✓</span>Chhota portion</div><div class="row r1"><span class="tick">✓</span>Juice nahi</div><div class="row r2"><span class="tick">✓</span>Fibre ke saath</div></div></div>
+<div id="g75" class="clip " data-start="46.680" data-duration="3.413" data-track-index="3"><div class="stamp"><span class="ln">Fruits bure nahi,</span><span class="ln"><b>ACHHE</b> hain ✓</span></div></div>
+<div id="g76" class="clip " data-start="50.963" data-duration="4.098" data-track-index="3"><div class="namecard big"><div class="nm">Dr. Sachi Tandon</div><div class="cr"><span class="ln">Diabetologist</span><span class="ln">MD Naturopathy</span><span class="ln">Nutrition Expert</span></div></div></div>
+<div id="g77" class="clip full" data-start="61.600" data-duration="1.600" data-track-index="5"><div class="end"><div class="k">for a customised diabetes meal plan</div><div class="brand"><span class="ln">SACHI</span><span class="ln">NATUROPATHY</span></div><div class="who">Dr. Sachi Tandon</div></div></div>
+</div>
+<script>
+const tl = gsap.timeline({ paused: true });
+tl.fromTo("#g1 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},0.040);
+tl.fromTo("#g1 .hero",{scale:0.9,opacity:0},{scale:1,opacity:1,duration:0.15,ease:"power2.out"},0.130);
+tl.fromTo("#g2 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},0.730);
+tl.fromTo("#g2 .hero",{scale:0.9,opacity:0},{scale:1,opacity:1,duration:0.15,ease:"power2.out"},1.350);
+tl.fromTo("#g3 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},1.530);
+tl.fromTo("#g3 .hero",{scale:0.9,opacity:0},{scale:1,opacity:1,duration:0.15,ease:"power2.out"},1.710);
+tl.fromTo("#g4 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},1.960);
+tl.fromTo("#g5 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},3.220);
+tl.fromTo("#g5 .hero",{scale:0.9,opacity:0},{scale:1,opacity:1,duration:0.15,ease:"power2.out"},4.070);
+tl.fromTo("#g6 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},4.520);
+tl.fromTo("#g7 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},5.850);
+tl.fromTo("#g8 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},6.960);
+tl.fromTo("#g9 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},7.600);
+tl.fromTo("#g9 .hero",{scale:0.9,opacity:0},{scale:1,opacity:1,duration:0.15,ease:"power2.out"},8.610);
+tl.fromTo("#g10 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},8.840);
+tl.fromTo("#g11 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},9.170);
+tl.fromTo("#g11 .hero",{scale:0.9,opacity:0},{scale:1,opacity:1,duration:0.15,ease:"power2.out"},10.130);
+tl.fromTo("#g12 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},10.740);
+tl.fromTo("#g13 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},11.206);
+tl.fromTo("#g13 .hero",{scale:0.9,opacity:0},{scale:1,opacity:1,duration:0.15,ease:"power2.out"},12.290);
+tl.fromTo("#g14 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},12.670);
+tl.fromTo("#g15 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},13.980);
+tl.fromTo("#g15 .hero",{scale:0.9,opacity:0},{scale:1,opacity:1,duration:0.15,ease:"power2.out"},14.880);
+tl.fromTo("#g16 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},15.140);
+tl.fromTo("#g17 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},15.950);
+tl.fromTo("#g18 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},17.080);
+tl.fromTo("#g19 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},18.330);
+tl.fromTo("#g19 .hero",{scale:0.9,opacity:0},{scale:1,opacity:1,duration:0.15,ease:"power2.out"},18.560);
+tl.fromTo("#g20 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},19.410);
+tl.fromTo("#g21 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},20.150);
+tl.fromTo("#g21 .hero",{scale:0.9,opacity:0},{scale:1,opacity:1,duration:0.15,ease:"power2.out"},21.350);
+tl.fromTo("#g22 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},21.470);
+tl.fromTo("#g23 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},22.080);
+tl.fromTo("#g23 .hero",{scale:0.9,opacity:0},{scale:1,opacity:1,duration:0.15,ease:"power2.out"},22.880);
+tl.fromTo("#g24 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},23.350);
+tl.fromTo("#g25 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},24.380);
+tl.fromTo("#g26 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},25.080);
+tl.fromTo("#g27 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},26.630);
+tl.fromTo("#g28 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},27.100);
+tl.fromTo("#g29 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},27.300);
+tl.fromTo("#g29 .hero",{scale:0.9,opacity:0},{scale:1,opacity:1,duration:0.15,ease:"power2.out"},27.740);
+tl.fromTo("#g30 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},27.950);
+tl.fromTo("#g31 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},29.630);
+tl.fromTo("#g32 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},30.330);
+tl.fromTo("#g32 .hero",{scale:0.9,opacity:0},{scale:1,opacity:1,duration:0.15,ease:"power2.out"},31.040);
+tl.fromTo("#g33 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},32.540);
+tl.fromTo("#g33 .hero",{scale:0.9,opacity:0},{scale:1,opacity:1,duration:0.15,ease:"power2.out"},33.080);
+tl.fromTo("#g34 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},33.530);
+tl.fromTo("#g35 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},34.070);
+tl.fromTo("#g36 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},34.370);
+tl.fromTo("#g36 .hero",{scale:0.9,opacity:0},{scale:1,opacity:1,duration:0.15,ease:"power2.out"},34.630);
+tl.fromTo("#g37 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},35.250);
+tl.fromTo("#g38 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},35.970);
+tl.fromTo("#g39 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},36.370);
+tl.fromTo("#g39 .hero",{scale:0.9,opacity:0},{scale:1,opacity:1,duration:0.15,ease:"power2.out"},37.080);
+tl.fromTo("#g40 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},37.140);
+tl.fromTo("#g41 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},38.720);
+tl.fromTo("#g42 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},39.400);
+tl.fromTo("#g42 .hero",{scale:0.9,opacity:0},{scale:1,opacity:1,duration:0.15,ease:"power2.out"},39.690);
+tl.fromTo("#g43 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},40.690);
+tl.fromTo("#g43 .hero",{scale:0.9,opacity:0},{scale:1,opacity:1,duration:0.15,ease:"power2.out"},41.280);
+tl.fromTo("#g44 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},41.920);
+tl.fromTo("#g45 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},42.340);
+tl.fromTo("#g45 .hero",{scale:0.9,opacity:0},{scale:1,opacity:1,duration:0.15,ease:"power2.out"},42.850);
+tl.fromTo("#g46 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},43.140);
+tl.fromTo("#g47 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},43.750);
+tl.fromTo("#g48 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},44.510);
+tl.fromTo("#g48 .hero",{scale:0.9,opacity:0},{scale:1,opacity:1,duration:0.15,ease:"power2.out"},45.000);
+tl.fromTo("#g49 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},45.670);
+tl.fromTo("#g50 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},46.410);
+tl.fromTo("#g50 .hero",{scale:0.9,opacity:0},{scale:1,opacity:1,duration:0.15,ease:"power2.out"},46.680);
+tl.fromTo("#g51 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},47.230);
+tl.fromTo("#g52 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},47.920);
+tl.fromTo("#g52 .hero",{scale:0.9,opacity:0},{scale:1,opacity:1,duration:0.15,ease:"power2.out"},48.194);
+tl.fromTo("#g53 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},49.264);
+tl.fromTo("#g54 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},50.193);
+tl.fromTo("#g54 .hero",{scale:0.9,opacity:0},{scale:1,opacity:1,duration:0.15,ease:"power2.out"},50.963);
+tl.fromTo("#g55 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},52.111);
+tl.fromTo("#g56 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},53.062);
+tl.fromTo("#g57 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},54.221);
+tl.fromTo("#g58 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},55.061);
+tl.fromTo("#g59 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},55.703);
+tl.fromTo("#g59 .hero",{scale:0.9,opacity:0},{scale:1,opacity:1,duration:0.15,ease:"power2.out"},56.635);
+tl.fromTo("#g60 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},57.094);
+tl.fromTo("#g61 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},57.764);
+tl.fromTo("#g61 .hero",{scale:0.9,opacity:0},{scale:1,opacity:1,duration:0.15,ease:"power2.out"},57.874);
+tl.fromTo("#g62 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},59.223);
+tl.fromTo("#g63 .lead",{y:18,opacity:0},{y:0,opacity:1,duration:0.15,ease:"power2.out"},60.373);
+tl.fromTo("#g64 .fruit",{y:0,scale:0.9,opacity:0},{y:0,scale:1,opacity:1,duration:0.28,ease:"back.out(1.8)"},1.350);
+tl.fromTo("#g65 .fruit",{y:0,scale:0.9,opacity:0},{y:0,scale:1,opacity:1,duration:0.28,ease:"back.out(1.8)"},1.710);
+tl.fromTo("#g66 .namecard",{y:60,opacity:0},{y:0,opacity:1,duration:0.3,ease:"power3.out"},3.289);
+tl.to("#g66 .namecard",{opacity:0,duration:0.2,ease:"power1.in"},6.889);
+tl.fromTo("#g67 .card",{y:40,scale:0.9,opacity:0},{y:0,scale:1,opacity:1,duration:0.28,ease:"back.out(1.8)"},10.130);
+tl.fromTo("#g68 .card",{y:40,scale:0.9,opacity:0},{y:0,scale:1,opacity:1,duration:0.28,ease:"back.out(1.8)"},12.290);
+tl.fromTo("#g69 .c0",{y:20,scale:0.9,opacity:0},{y:0,scale:1,opacity:1,duration:0.28,ease:"back.out(1.8)"},18.560);
+tl.fromTo("#g69 .c1",{y:20,scale:0.9,opacity:0},{y:0,scale:1,opacity:1,duration:0.28,ease:"back.out(1.8)"},19.010);
+tl.fromTo("#g69 .c2",{y:20,scale:0.9,opacity:0},{y:0,scale:1,opacity:1,duration:0.28,ease:"back.out(1.8)"},19.460);
+tl.fromTo("#g70 .card",{y:40,scale:0.9,opacity:0},{y:0,scale:1,opacity:1,duration:0.28,ease:"back.out(1.8)"},27.740);
+tl.fromTo("#g71 .title",{opacity:0},{opacity:1,duration:0.15},30.890);
+tl.fromTo("#g71 .pc",{scale:1.25,opacity:0},{scale:1,opacity:1,duration:0.35,ease:"power3.out"},30.990);
+tl.to("#g71 .title",{opacity:0,duration:0.2,ease:"power1.in"},32.190);
+tl.fromTo("#g72 .card",{y:40,scale:0.9,opacity:0},{y:0,scale:1,opacity:1,duration:0.28,ease:"back.out(1.8)"},33.080);
+tl.fromTo("#g73 .card",{y:40,scale:0.9,opacity:0},{y:0,scale:1,opacity:1,duration:0.28,ease:"back.out(1.8)"},34.630);
+tl.fromTo("#g74 .r0",{y:20,scale:0.9,opacity:0},{y:0,scale:1,opacity:1,duration:0.28,ease:"back.out(1.8)"},39.690);
+tl.fromTo("#g74 .r1",{y:20,scale:0.9,opacity:0},{y:0,scale:1,opacity:1,duration:0.28,ease:"back.out(1.8)"},41.280);
+tl.fromTo("#g74 .r2",{y:20,scale:0.9,opacity:0},{y:0,scale:1,opacity:1,duration:0.28,ease:"back.out(1.8)"},42.850);
+tl.fromTo("#g75 .stamp",{scale:1.5,rotation:-10,opacity:0},{scale:1,rotation:-4,opacity:1,duration:0.3,ease:"back.out(2)"},46.680);
+tl.fromTo("#g76 .namecard",{y:60,opacity:0},{y:0,opacity:1,duration:0.3,ease:"power3.out"},50.963);
+tl.fromTo("#g77 .brand",{scale:0.9,opacity:0},{scale:1,opacity:1,duration:0.4,ease:"power3.out"},61.600);
+tl.fromTo("#g77 .k, #g77 .who",{y:20,opacity:0},{y:0,opacity:1,duration:0.4,stagger:0.12},61.750);
+tl.fromTo("#cam",{scale:1},{scale:1.05,duration:6.322,ease:"none"},15.758);
+tl.set("#cam",{scale:1},22.080);
+tl.fromTo("#cam",{scale:1},{scale:1.08,duration:5.738,ease:"none",immediateRender:false},44.356);
+tl.set("#cam",{scale:1},50.093);
+window.__timelines["main"] = tl;
+</script>
+</body>
+</html>

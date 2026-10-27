@@ -13,7 +13,7 @@ This folder is a video-editing workspace. Claude edits Instagram Reels from the 
 ## Where the tools are
 | | Windows laptop | Cloud / Linux |
 |---|---|---|
-| Setup | already installed | run `bash setup-cloud.sh --small` first |
+| Setup | new laptop: run `setup-windows.ps1 -Small` | run `bash setup-cloud.sh --small` first |
 | Whisper | `tools/whisper/Release/whisper-cli.exe` | `tools/whisper-cli` |
 | yt-dlp | `tools/yt-dlp.exe` | `yt-dlp` |
 | Models | `tools/ggml-base.bin`, `tools/ggml-small.bin` | same |
